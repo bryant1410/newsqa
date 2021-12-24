@@ -121,17 +121,18 @@ These steps handle packaging the dataset and running the tests.
 * Download the tar.gz file for the questions and answers from [here][maluuba_newsqa_dl] to the maluuba/newsqa folder. No need to extract anything.
 * Download the CNN stories from [here][cnn_stories] to the maluuba/newsqa folder (for legal and technical reasons, we can't distribute this to you).
 * In the root of this repo, run:
-```bash
-docker build -t maluuba/newsqa .
-docker run --rm -it -v ${PWD}:/usr/src/newsqa --name newsqa maluuba/newsqa
-```
+    ```bash
+    docker run --rm -itv ${PWD}:/usr/src/newsqa bryant1410/newsqa
+    ```
+    
+    [The Docker image](https://hub.docker.com/repository/docker/bryant1410/newsqa) was built with `docker build -t bryant1410/newsqa .`.
 
 You now have the datasets.  See `combined-newsqa-data-*.json`, `combined-newsqa-data-*.csv`, or `maluuba/newsqa/newsqa-data-tokenized-*.csv`.
 
 #### Tokenize and Split
 If you want to tokenize and split the data into train, dev, and test, to match the paper run, then you must get "into" the container and run the packaging command:
 ```bash
-docker run --rm -it -v ${PWD}:/usr/src/newsqa --name newsqa maluuba/newsqa /bin/bash --login -c 'python maluuba/newsqa/data_generator.py'
+docker run --rm -itv ${PWD}:/usr/src/newsqa bryant1410/newsqa bash --login -c 'python maluuba/newsqa/data_generator.py'
 ```
 The warnings from the tokenizer are normal.
 
